@@ -9,9 +9,9 @@ const Color = document.querySelector('#color');
 
 //contenedor para los resultado
 const resultado = document.querySelector('#resultado');
-const max = new Date().getFullYear();
+const max = new Date().getFullYear() -1;
 const min = max - 10;
-
+console.log(max);
 // Generar un objecto de busqueda
 const datoBusqueda = {// crear un objecto vacio para escuhar llamarlo de ota parte
     marca: '',
@@ -34,10 +34,13 @@ llenarSelect();
 // eventos para los selectores de busqueda
 marca.addEventListener('change', e =>{// change es un buen metodo par usar cuando cambia una seleccion
     datoBusqueda.marca = e.target.value;
+    filtrarAutos();
+   
     
 });
 year.addEventListener('change', e =>{
-    datoBusqueda.year = e.target.value;
+    datoBusqueda.year = parseInt(e.target.value);
+    filtrarAutos();
     
 });
 minimo.addEventListener('change', e =>{
@@ -84,5 +87,29 @@ function llenarSelect(){
        option.value = i;
        option.textContent= i;
        year.appendChild(option);
+    }
+};
+
+// filtrar los autos
+function filtrarAutos() {
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
+    console.log(resultado);
+};
+
+function filtrarMarca(auto) {
+    const {marca} = datoBusqueda;// esta verifica si hay una marca que sea igual a marca busqueda
+    if (marca) {
+        return auto.marca === marca;
+    }else{
+        return auto;
+    }
+};
+
+function filtrarYear(auto) {
+    const {year} = datoBusqueda;// esta verifica si hay una marca que sea igual a marca busqueda
+    if (year) {
+        return auto.year === year;
+    }else{
+        return auto;
     }
 };
