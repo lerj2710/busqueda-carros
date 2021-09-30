@@ -1,10 +1,15 @@
 //variables
 const resultado = document.querySelector('#resultado');
-
+const year = document.querySelector('#year');
+const max = new Date().getFullYear();
+const min = max - 10;
 
 //eventos
 document.addEventListener('DOMContentLoaded',()=>{
- mostarAutos();
+ mostarAutos();// muestra los auto en html
+ 
+ //llenar los años selecion
+llenarSelect();
 });
 
 
@@ -26,4 +31,13 @@ const {marca, modelo, year, precio, color, transmision, puertas }= auto
     });
 
    
-}
+};
+
+function llenarSelect(){
+    for(let i= max; i>= min; i--){
+       const option= document.createElement('option');
+       option.value = i;
+       option.textContent= i;
+       year.appendChild(option);
+    }
+};
