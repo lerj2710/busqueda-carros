@@ -9,9 +9,11 @@ const Color = document.querySelector('#color');
 
 //contenedor para los resultado
 const resultado = document.querySelector('#resultado');
+
+//crear los años
 const max = new Date().getFullYear() -1;
 const min = max - 10;
-console.log();
+
 // Generar un objecto de busqueda
 const datoBusqueda = {// crear un objecto vacio para escuhar llamarlo de ota parte
     marca: '',
@@ -25,7 +27,7 @@ const datoBusqueda = {// crear un objecto vacio para escuhar llamarlo de ota par
 
 //eventos
 document.addEventListener('DOMContentLoaded',()=>{
- mostarAutos();// muestra los auto en html
+    mostarAutos();// muestra los auto en html
  
  //llenar los años selecion
 llenarSelect();
@@ -39,16 +41,16 @@ marca.addEventListener('change', e =>{// change es un buen metodo par usar cuand
     
 });
 year.addEventListener('change', e =>{
-    datoBusqueda.year = parseInt(e.target.value);
+    datoBusqueda.year = parseInt(e.target.value);// convertir los string en numero
     filtrarAutos();
     
 });
 minimo.addEventListener('change', e =>{
-    datoBusqueda.minimo = e.target.value;
-    
+    datoBusqueda.minimo =e.target.value;
+    filtrarAutos();
 });
 maximo.addEventListener('change', e =>{
-    datoBusqueda.maximo = e.target.value;
+    datoBusqueda.maximo =e.target.value;
     
 });
 puertas.addEventListener('change', e =>{
@@ -68,6 +70,7 @@ color.addEventListener('change', e =>{
 function mostarAutos(autos) {
     //limpiar el html antes de para evitar duplicado
     limpiarHtml();
+
     autos.forEach( auto =>{
        const {marca, modelo, year, precio, color, transmision, puertas }= auto
        const autoHtml = document.createElement('p');
@@ -102,7 +105,7 @@ function llenarSelect(){
 // filtrar los autos
 function filtrarAutos() {
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
-   mostarAutos(resultado);
+    mostarAutos(resultado);
 };
 
 function filtrarMarca(auto) {
@@ -122,3 +125,11 @@ function filtrarYear(auto) {
         return auto;
     }
 };
+// function filtrarMinimo(auto) {
+//     const {minimo} = datoBusqueda;
+//     if (precio) {
+//         return auto.precio >= minimo;
+//     }else{
+//         return auto;
+//     }
+// }
